@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanban Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────────────────────── -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+      <span class="logo-text">Kanban</span>
+    </div>
+
+    <div class="search-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input id="search" type="search" placeholder="Search cards…" autocomplete="off" />
+    </div>
+
+    <div class="header-right">
+      <div class="view-toggle" role="group" aria-label="View mode">
+        <button class="view-btn" data-view="board" title="Board view" aria-label="Board view">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <rect x="3"  y="3"  width="7" height="18" rx="1"/>
+            <rect x="14" y="3"  width="7" height="11" rx="1"/>
+            <rect x="14" y="17" width="7" height="4"  rx="1"/>
+          </svg>
+          <span class="view-btn-label">Board</span>
+        </button>
+        <button class="view-btn" data-view="list" title="List view" aria-label="List view">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="8"  y1="6"  x2="21" y2="6"/>
+            <line x1="8"  y1="12" x2="21" y2="12"/>
+            <line x1="8"  y1="18" x2="21" y2="18"/>
+            <circle cx="3" cy="6"  r="1.5" fill="currentColor" stroke="none"/>
+            <circle cx="3" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+            <circle cx="3" cy="18" r="1.5" fill="currentColor" stroke="none"/>
+          </svg>
+          <span class="view-btn-label">List</span>
+        </button>
+      </div>
+      <span class="badge">LocalStorage</span>
+    </div>
+  </header>
+
+  <!-- ── Board ──────────────────────────────────────────────────────────── -->
+  <div id="board-wrapper">
+    <main id="board" role="main" aria-label="Kanban board"></main>
+  </div>
+
+  <!-- ── Card Modal ─────────────────────────────────────────────────────── -->
+  <div id="modal-overlay" role="presentation"></div>
+
+  <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+    <div class="modal-pill"></div>
+    <div class="modal-header">
+      <div>
+        <h3 id="modal-heading">Card</h3>
+        <div class="modal-col-context">in <strong id="modal-col-name"></strong></div>
+      </div>
+      <button id="modal-close" aria-label="Close">&times;</button>
+    </div>
+
+    <div class="form-group">
+      <label for="modal-title">Title</label>
+      <input id="modal-title" type="text" placeholder="What needs to be done?" maxlength="120" />
+    </div>
+
+    <div class="form-group">
+      <label for="modal-desc">Description</label>
+      <textarea id="modal-desc" rows="3" placeholder="Add more detail…"></textarea>
+    </div>
+
+    <!-- Checklist -->
+    <div class="form-group">
+      <div class="checklist-label-row">
+        <label>Checklist</label>
+        <span id="checklist-progress" class="checklist-progress-text"></span>
+      </div>
+      <div class="checklist-bar-wrap" id="checklist-bar-wrap">
+        <div class="checklist-bar-fill" id="checklist-bar-fill"></div>
+      </div>
+      <ul id="checklist-items" class="checklist-list"></ul>
+      <button type="button" id="checklist-add-btn" class="checklist-add-btn">+ Add an item</button>
+    </div>
+
+    <div class="form-group">
+      <label for="modal-labels">Labels</label>
+      <input id="modal-labels" type="text" placeholder="research, design, bug…" />
+      <p class="hint">Comma-separated. Built-in: research, planning, design, bug, feature, review</p>
+    </div>
+
+    <div class="form-group">
+      <label for="modal-column">Column</label>
+      <div class="column-select-wrap">
+        <select id="modal-column"></select>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button id="modal-save" class="btn btn-primary">Save card</button>
+      <button id="modal-delete" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+
+  <!-- ── App ────────────────────────────────────────────────────────────── -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
